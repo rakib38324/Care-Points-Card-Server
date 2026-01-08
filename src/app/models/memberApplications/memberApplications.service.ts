@@ -127,6 +127,13 @@ const getSingleMemberApplicationFromDB = async (userData: JwtPayload) => {
     userId: userData?._id,
   });
 
+  if (applicationData?.isDeleted) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      'Your application has been deactivated. Please contact an administrator to discuss restoration options. Thank you for your patience.',
+    );
+  }
+
   if (applicationData) {
     const result = decryptMemberApplicationPayload(applicationData);
     return result;
@@ -189,6 +196,13 @@ export const updateMemberApplicationFromDB = async (
     throw new AppError(httpStatus.FORBIDDEN, 'Access denied.');
   }
 
+  if (payload?.isPaid === true && !isAdmin) {
+    throw new AppError(
+      httpStatus.FORBIDDEN,
+      'Paid option can update only Admin or Super Admin.',
+    );
+  }
+
   // 🔐 Fields to encrypt
   const encryptedPayload = {
     ...encryptObjectFields<TMemberApplications>(payload, [
@@ -218,6 +232,7 @@ export const updateMemberApplicationFromDB = async (
           : undefined,
       })),
     }),
+    isDeleted: payload?.isDeleted,
   };
 
   const updatedApplication = await MemberApplications.findByIdAndUpdate(
@@ -226,7 +241,9 @@ export const updateMemberApplicationFromDB = async (
     { new: true, runValidators: true },
   ).lean();
 
-  return updatedApplication;
+  const result = decryptMemberApplicationPayload(updatedApplication!);
+
+  return result;
 };
 
 export const deleteMemberApplicationFromDB = async (
@@ -291,4 +308,5 @@ export const memberServices = {
   getAllMemberApplicationFromDB,
   deleteMemberApplicationFromDB,
   getMemberApplicationWithEmailFromDB,
+  updateMemberApplicationFromDB,
 };

@@ -40,6 +40,24 @@ router.get(
   memberControllers.getSingleMemberApplication,
 );
 
+router.patch(
+  `/:id`,
+  Auth(
+    USER_ROLE.admin,
+    USER_ROLE.superAdmin,
+    USER_ROLE.doctor,
+    USER_ROLE.employer,
+    USER_ROLE.member,
+    USER_ROLE.ngo,
+    USER_ROLE.provider,
+    USER_ROLE.sponsor,
+  ),
+  ValidateRequest(
+    MemberApplicationValidations?.updateMemberApplicationValidationSchema,
+  ),
+  memberControllers.updateMemberApplication,
+);
+
 router.get(
   `/all-application`,
   Auth(USER_ROLE.admin, USER_ROLE.superAdmin),

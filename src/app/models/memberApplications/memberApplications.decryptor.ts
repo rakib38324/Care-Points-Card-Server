@@ -50,5 +50,6 @@ export const decryptMemberApplicationPayload = (
     paymentMethod: payload?.paymentMethod,
     paymentId: payload?.paymentId,
     ispaid: payload?.isPaid,
+    isDeleted: payload?.isDeleted,
   };
 };
