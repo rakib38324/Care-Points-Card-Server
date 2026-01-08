@@ -86,6 +86,18 @@ const memberApplicationsSchema = new Schema<TMemberApplications>(
       type: Boolean,
       default: false,
     },
+    notification: {
+      type: Boolean,
+      default: false,
+    },
+    PrivacyPolicyHIPAA: {
+      type: Boolean,
+      required: true,
+    },
+    TermsOfService: {
+      type: Boolean,
+      required: true,
+    },
   },
   {
     timestamps: true,

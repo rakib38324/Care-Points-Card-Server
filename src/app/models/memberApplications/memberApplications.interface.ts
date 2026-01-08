@@ -40,6 +40,11 @@ export type TMemberApplications = {
   isPaid: boolean;
   isDeleted: boolean;
 
+  // ----------- condition ---------
+  TermsOfService: boolean;
+  PrivacyPolicyHIPAA: boolean;
+  notification: boolean;
+
   // ================= System Fields =================
   createdAt: Date;
   updatedAt: Date;

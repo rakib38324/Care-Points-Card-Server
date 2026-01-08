@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.spondorRouters = void 0;
+const express_1 = __importDefault(require("express"));
+const validateRequest_1 = __importDefault(require("../../middlewares/validateRequest"));
+const user_constent_1 = require("../UsersRegistration/user.constent");
+const Auth_1 = __importDefault(require("../../middlewares/Auth"));
+const sponsorApplications_validation_1 = require("./sponsorApplications.validation");
+const sponsorApplications_controller_1 = require("./sponsorApplications.controller");
+const router = express_1.default.Router();
+router.post(`/application`, (0, Auth_1.default)(user_constent_1.USER_ROLE.admin, user_constent_1.USER_ROLE.superAdmin, user_constent_1.USER_ROLE.doctor, user_constent_1.USER_ROLE.employer, user_constent_1.USER_ROLE.member, user_constent_1.USER_ROLE.ngo, user_constent_1.USER_ROLE.provider, user_constent_1.USER_ROLE.sponsor), (0, validateRequest_1.default)(sponsorApplications_validation_1.SponsorApplicationValidations.createSponsorValidationSchema), sponsorApplications_controller_1.SpondorControllers.createSpondorApplication);
+router.get(`/application`, (0, Auth_1.default)(user_constent_1.USER_ROLE.admin, user_constent_1.USER_ROLE.superAdmin, user_constent_1.USER_ROLE.doctor, user_constent_1.USER_ROLE.employer, user_constent_1.USER_ROLE.member, user_constent_1.USER_ROLE.ngo, user_constent_1.USER_ROLE.provider, user_constent_1.USER_ROLE.sponsor), sponsorApplications_controller_1.SpondorControllers.getSingleSposorApplication);
+router.patch(`/:id`, (0, Auth_1.default)(user_constent_1.USER_ROLE.admin, user_constent_1.USER_ROLE.superAdmin, user_constent_1.USER_ROLE.doctor, user_constent_1.USER_ROLE.employer, user_constent_1.USER_ROLE.member, user_constent_1.USER_ROLE.ngo, user_constent_1.USER_ROLE.provider, user_constent_1.USER_ROLE.sponsor), (0, validateRequest_1.default)(sponsorApplications_validation_1.SponsorApplicationValidations === null || sponsorApplications_validation_1.SponsorApplicationValidations === void 0 ? void 0 : sponsorApplications_validation_1.SponsorApplicationValidations.updateSponsorValidationSchema), sponsorApplications_controller_1.SpondorControllers.updateSponsorApplication);
+router.get(`/all-application`, (0, Auth_1.default)(user_constent_1.USER_ROLE.admin, user_constent_1.USER_ROLE.superAdmin), sponsorApplications_controller_1.SpondorControllers.getAllSponsorApplication);
+router.get(`/:email`, (0, Auth_1.default)(user_constent_1.USER_ROLE.admin, user_constent_1.USER_ROLE.superAdmin), sponsorApplications_controller_1.SpondorControllers.getSponsorApplicationsWithEmail);
+router.delete(`/:id`, (0, Auth_1.default)(user_constent_1.USER_ROLE.admin, user_constent_1.USER_ROLE.superAdmin), sponsorApplications_controller_1.SpondorControllers.deleteSponsorApplication);
+exports.spondorRouters = router;

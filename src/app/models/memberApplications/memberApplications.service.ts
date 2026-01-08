@@ -38,6 +38,13 @@ const createMemberIntoDB = async (
     );
   }
 
+  if (userExists?.role !== USER_ROLE.member && !isAdminOrSuperAdmin) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      `Your account has been registered as a ${userExists?.role}. So you are not application for Member Application`,
+    );
+  }
+
   // Encrypt sensitive fields before saving
   const encrypteddata = encryptMemberApplicationPayload(payload);
 
@@ -200,6 +207,16 @@ export const updateMemberApplicationFromDB = async (
     throw new AppError(
       httpStatus.FORBIDDEN,
       'Paid option can update only Admin or Super Admin.',
+    );
+  }
+
+  if (
+    (payload?.isDeleted === true || payload?.isDeleted === false) &&
+    !isAdmin
+  ) {
+    throw new AppError(
+      httpStatus.FORBIDDEN,
+      'Delete option can update only Admin or Super Admin.',
     );
   }
 

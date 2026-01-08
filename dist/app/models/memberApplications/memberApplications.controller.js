@@ -80,5 +80,5 @@ exports.memberControllers = {
     getSingleMemberApplication,
     deleteMemberApplication,
     getMemberApplicationsWithEmail,
-    updateMemberApplication
+    updateMemberApplication,
 };

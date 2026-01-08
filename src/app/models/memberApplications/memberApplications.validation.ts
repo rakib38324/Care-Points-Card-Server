@@ -77,6 +77,13 @@ const createMemberApplicationValidationSchema = z.object({
     // ================= Payment =================
     onboardingFee: z.number().optional(),
     paymentMethod: z.string({ error: 'Payment method is required.' }),
+    notification: z.boolean().optional(),
+    PrivacyPolicyHIPAA: z
+      .boolean({ error: 'You must agree to Privacy Policy & HIPAA' })
+      .refine((val) => val === true),
+    TermsOfService: z
+      .boolean({ error: 'You must agree to Terms of Service.' })
+      .refine((val) => val === true),
   }),
 });
 

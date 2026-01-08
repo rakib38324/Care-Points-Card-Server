@@ -27,13 +27,15 @@ const createMemberIntoDB = (userData, payload) => __awaiter(void 0, void 0, void
     if (!userExists) {
         throw new appError_1.default(http_status_codes_1.default.BAD_REQUEST, 'User account is not created. Please go back previous step.');
     }
-    const isAdminOrSuperAdmin = (userExists === null || userExists === void 0 ? void 0 : userExists.role) === user_constent_1.USER_ROLE.admin ||
-        (userExists === null || userExists === void 0 ? void 0 : userExists.role) === user_constent_1.USER_ROLE.superAdmin;
+    const isAdminOrSuperAdmin = (userExists === null || userExists === void 0 ? void 0 : userExists.role) === user_constent_1.USER_ROLE.admin || (userExists === null || userExists === void 0 ? void 0 : userExists.role) === user_constent_1.USER_ROLE.superAdmin;
     const duplicateApplication = yield memberApplications_model_1.MemberApplications.findOne({
         userId: userData === null || userData === void 0 ? void 0 : userData._id,
     });
     if (duplicateApplication && !isAdminOrSuperAdmin) {
         throw new appError_1.default(http_status_codes_1.default.BAD_REQUEST, 'You have already applied for Individual Subscriber Enrollment.');
+    }
+    if ((userExists === null || userExists === void 0 ? void 0 : userExists.role) !== user_constent_1.USER_ROLE.member && !isAdminOrSuperAdmin) {
+        throw new appError_1.default(http_status_codes_1.default.BAD_REQUEST, `Your account has been registered as a ${userExists === null || userExists === void 0 ? void 0 : userExists.role}. So you are not application for Member Application`);
     }
     // Encrypt sensitive fields before saving
     const encrypteddata = (0, memberApplications_encriptor_1.encryptMemberApplicationPayload)(payload);
@@ -103,7 +105,7 @@ const getSingleMemberApplicationFromDB = (userData) => __awaiter(void 0, void 0,
         userId: userData === null || userData === void 0 ? void 0 : userData._id,
     });
     if (applicationData === null || applicationData === void 0 ? void 0 : applicationData.isDeleted) {
-        throw new appError_1.default(http_status_codes_1.default.BAD_REQUEST, "Your application has been deactivated. Please contact an administrator to discuss restoration options. Thank you for your patience.");
+        throw new appError_1.default(http_status_codes_1.default.BAD_REQUEST, 'Your application has been deactivated. Please contact an administrator to discuss restoration options. Thank you for your patience.');
     }
     if (applicationData) {
         const result = (0, memberApplications_decryptor_1.decryptMemberApplicationPayload)(applicationData);
@@ -143,6 +145,9 @@ const updateMemberApplicationFromDB = (userData, applicationId, payload) => __aw
     }
     if ((payload === null || payload === void 0 ? void 0 : payload.isPaid) === true && !isAdmin) {
         throw new appError_1.default(http_status_codes_1.default.FORBIDDEN, 'Paid option can update only Admin or Super Admin.');
+    }
+    if (((payload === null || payload === void 0 ? void 0 : payload.isDeleted) === true || (payload === null || payload === void 0 ? void 0 : payload.isDeleted) === false) && !isAdmin) {
+        throw new appError_1.default(http_status_codes_1.default.FORBIDDEN, 'Delete option can update only Admin or Super Admin.');
     }
     // 🔐 Fields to encrypt
     const encryptedPayload = Object.assign(Object.assign(Object.assign({}, (0, encryptObjectFields_1.encryptObjectFields)(payload, [
@@ -213,5 +218,5 @@ exports.memberServices = {
     getAllMemberApplicationFromDB,
     deleteMemberApplicationFromDB: exports.deleteMemberApplicationFromDB,
     getMemberApplicationWithEmailFromDB,
-    updateMemberApplicationFromDB: exports.updateMemberApplicationFromDB
+    updateMemberApplicationFromDB: exports.updateMemberApplicationFromDB,
 };

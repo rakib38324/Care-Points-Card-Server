@@ -61,6 +61,9 @@ const createMemberApplicationValidationSchema = zod_1.z.object({
         // ================= Payment =================
         onboardingFee: zod_1.z.number().optional(),
         paymentMethod: zod_1.z.string({ error: 'Payment method is required.' }),
+        notification: zod_1.z.boolean().optional(),
+        PrivacyPolicyHIPAA: zod_1.z.boolean({ error: 'You must agree to Privacy Policy & HIPAA' }).refine(val => val === true),
+        TermsOfService: zod_1.z.boolean({ error: 'You must agree to Terms of Service.' }).refine(val => val === true)
     }),
 });
 /**
