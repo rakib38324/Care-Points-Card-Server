@@ -38,6 +38,22 @@ const getAllMemberApplication = catchAsync(async (req, res) => {
   });
 });
 
+const updateMemberApplication = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await memberServices.updateMemberApplicationFromDB(
+    req.user,
+    id,
+    req.body,
+  );
+
+  commonRes(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Member Application Retrieved Successfully.',
+    data: result,
+  });
+});
+
 const deleteMemberApplication = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await memberServices.deleteMemberApplicationFromDB(
@@ -72,4 +88,5 @@ export const memberControllers = {
   getSingleMemberApplication,
   deleteMemberApplication,
   getMemberApplicationsWithEmail,
+  updateMemberApplication,
 };

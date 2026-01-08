@@ -44,6 +44,16 @@ const getAllMemberApplication = (0, catchAsync_1.default)((req, res) => __awaite
         data: result,
     });
 }));
+const updateMemberApplication = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const result = yield memberApplications_service_1.memberServices.updateMemberApplicationFromDB(req.user, id, req.body);
+    (0, commonResponse_1.default)(res, {
+        statusCode: http_status_codes_1.default.OK,
+        success: true,
+        message: 'Member Application Retrieved Successfully.',
+        data: result,
+    });
+}));
 const deleteMemberApplication = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const result = yield memberApplications_service_1.memberServices.deleteMemberApplicationFromDB(req.user, id);
@@ -69,5 +79,6 @@ exports.memberControllers = {
     getAllMemberApplication,
     getSingleMemberApplication,
     deleteMemberApplication,
-    getMemberApplicationsWithEmail
+    getMemberApplicationsWithEmail,
+    updateMemberApplication
 };

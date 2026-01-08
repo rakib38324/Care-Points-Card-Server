@@ -100,8 +100,11 @@ const getSingleMemberApplicationFromDB = (userData) => __awaiter(void 0, void 0,
         throw new appError_1.default(http_status_codes_1.default.BAD_REQUEST, 'User account is not found.');
     }
     const applicationData = yield memberApplications_model_1.MemberApplications.findOne({
-        userId: userData === null || userData === void 0 ? void 0 : userData._id
+        userId: userData === null || userData === void 0 ? void 0 : userData._id,
     });
+    if (applicationData === null || applicationData === void 0 ? void 0 : applicationData.isDeleted) {
+        throw new appError_1.default(http_status_codes_1.default.BAD_REQUEST, "Your application has been deactivated. Please contact an administrator to discuss restoration options. Thank you for your patience.");
+    }
     if (applicationData) {
         const result = (0, memberApplications_decryptor_1.decryptMemberApplicationPayload)(applicationData);
         return result;
@@ -134,13 +137,15 @@ const updateMemberApplicationFromDB = (userData, applicationId, payload) => __aw
         throw new appError_1.default(http_status_codes_1.default.NOT_FOUND, 'Application not found.');
     }
     const isOwner = application.userId.toString() === userData._id;
-    const isAdmin = userData.role === user_constent_1.USER_ROLE.admin ||
-        userData.role === user_constent_1.USER_ROLE.superAdmin;
+    const isAdmin = userData.role === user_constent_1.USER_ROLE.admin || userData.role === user_constent_1.USER_ROLE.superAdmin;
     if (!isOwner && !isAdmin) {
         throw new appError_1.default(http_status_codes_1.default.FORBIDDEN, 'Access denied.');
     }
+    if ((payload === null || payload === void 0 ? void 0 : payload.isPaid) === true && !isAdmin) {
+        throw new appError_1.default(http_status_codes_1.default.FORBIDDEN, 'Paid option can update only Admin or Super Admin.');
+    }
     // 🔐 Fields to encrypt
-    const encryptedPayload = Object.assign(Object.assign({}, (0, encryptObjectFields_1.encryptObjectFields)(payload, [
+    const encryptedPayload = Object.assign(Object.assign(Object.assign({}, (0, encryptObjectFields_1.encryptObjectFields)(payload, [
         'fullName',
         'dateOfBirth',
         'gender',
@@ -164,9 +169,10 @@ const updateMemberApplicationFromDB = (userData, applicationId, payload) => __aw
                 ? (0, encryption_utils_1.encrypt)(member.dateOfBirth.toString())
                 : undefined,
         })),
-    }));
+    })), { isDeleted: payload === null || payload === void 0 ? void 0 : payload.isDeleted });
     const updatedApplication = yield memberApplications_model_1.MemberApplications.findByIdAndUpdate(applicationId, { $set: encryptedPayload }, { new: true, runValidators: true }).lean();
-    return updatedApplication;
+    const result = (0, memberApplications_decryptor_1.decryptMemberApplicationPayload)(updatedApplication);
+    return result;
 });
 exports.updateMemberApplicationFromDB = updateMemberApplicationFromDB;
 const deleteMemberApplicationFromDB = (userData, applicationId) => __awaiter(void 0, void 0, void 0, function* () {
@@ -175,8 +181,7 @@ const deleteMemberApplicationFromDB = (userData, applicationId) => __awaiter(voi
         throw new appError_1.default(http_status_codes_1.default.NOT_FOUND, 'Application not found.');
     }
     const isOwner = application.userId.toString() === userData._id;
-    const isAdminOrSuperAdmin = userData.role === user_constent_1.USER_ROLE.admin ||
-        userData.role === user_constent_1.USER_ROLE.superAdmin;
+    const isAdminOrSuperAdmin = userData.role === user_constent_1.USER_ROLE.admin || userData.role === user_constent_1.USER_ROLE.superAdmin;
     if (!isOwner && !isAdminOrSuperAdmin) {
         throw new appError_1.default(http_status_codes_1.default.FORBIDDEN, 'You are not allowed to delete this application.');
     }
@@ -193,7 +198,7 @@ const getMemberApplicationWithEmailFromDB = (email) => __awaiter(void 0, void 0,
         throw new appError_1.default(http_status_codes_1.default.BAD_REQUEST, 'Invaid Email Address.');
     }
     const applicationData = yield memberApplications_model_1.MemberApplications.find({
-        userId: userExists === null || userExists === void 0 ? void 0 : userExists._id
+        userId: userExists === null || userExists === void 0 ? void 0 : userExists._id,
     });
     if (!applicationData.length) {
         throw new appError_1.default(http_status_codes_1.default.BAD_REQUEST, 'No application found under this email.');
@@ -207,5 +212,6 @@ exports.memberServices = {
     getSingleMemberApplicationFromDB,
     getAllMemberApplicationFromDB,
     deleteMemberApplicationFromDB: exports.deleteMemberApplicationFromDB,
-    getMemberApplicationWithEmailFromDB
+    getMemberApplicationWithEmailFromDB,
+    updateMemberApplicationFromDB: exports.updateMemberApplicationFromDB
 };

@@ -44,7 +44,8 @@ const decryptMemberApplicationPayload = (payload) => {
         onboardingFee: payload === null || payload === void 0 ? void 0 : payload.onboardingFee,
         paymentMethod: payload === null || payload === void 0 ? void 0 : payload.paymentMethod,
         paymentId: payload === null || payload === void 0 ? void 0 : payload.paymentId,
-        ispaid: payload === null || payload === void 0 ? void 0 : payload.isPaid
+        ispaid: payload === null || payload === void 0 ? void 0 : payload.isPaid,
+        isDeleted: payload === null || payload === void 0 ? void 0 : payload.isDeleted
     };
 };
 exports.decryptMemberApplicationPayload = decryptMemberApplicationPayload;
