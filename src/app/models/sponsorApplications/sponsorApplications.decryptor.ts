@@ -21,6 +21,7 @@ export const decryptSponsorPayload = (payload: TSponsorApplication) => {
 
     // ================= Sponsored Members =================
     sponsoredMembers: payload.sponsoredMembers?.map((member: any) => ({
+      _id: member?._id,
       fullName: decrypt(member.fullName),
       relationship: decrypt(member.relationship),
       dateOfBirth: member.dateOfBirth ? decrypt(member.dateOfBirth) : undefined,

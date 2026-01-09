@@ -26,7 +26,8 @@ const createSponsorIntoDB = (userData, payload) => __awaiter(void 0, void 0, voi
     if (!userExists) {
         throw new appError_1.default(http_status_codes_1.default.BAD_REQUEST, 'User account is not found. Please register first.');
     }
-    const isAdminOrSuperAdmin = (userExists === null || userExists === void 0 ? void 0 : userExists.role) === user_constent_1.USER_ROLE.admin || (userExists === null || userExists === void 0 ? void 0 : userExists.role) === user_constent_1.USER_ROLE.superAdmin;
+    const isAdminOrSuperAdmin = (userExists === null || userExists === void 0 ? void 0 : userExists.role) === user_constent_1.USER_ROLE.admin ||
+        (userExists === null || userExists === void 0 ? void 0 : userExists.role) === user_constent_1.USER_ROLE.superAdmin;
     if ((userExists === null || userExists === void 0 ? void 0 : userExists.role) !== user_constent_1.USER_ROLE.sponsor && !isAdminOrSuperAdmin) {
         throw new appError_1.default(http_status_codes_1.default.BAD_REQUEST, `Your account has been registered as a ${userExists === null || userExists === void 0 ? void 0 : userExists.role}. So you are not application for Spondor Application`);
     }
@@ -34,7 +35,7 @@ const createSponsorIntoDB = (userData, payload) => __awaiter(void 0, void 0, voi
         userId: userData._id,
     });
     if (duplicateApplication && !isAdminOrSuperAdmin) {
-        throw new appError_1.default(http_status_codes_1.default.BAD_REQUEST, 'You have already created a  Sponsor application.');
+        throw new appError_1.default(http_status_codes_1.default.BAD_REQUEST, 'You have already apply for Sponsor application.');
     }
     // Encrypt sensitive fields before saving
     const encryptedData = (0, sponsorApplication_encriptor_1.encryptSponsorPayload)(payload);
@@ -74,7 +75,9 @@ const getAllSponsorApplicationsFromDB = (userData) => __awaiter(void 0, void 0, 
     return applicationData.map((app) => (0, sponsorApplications_decryptor_1.decryptSponsorPayload)(app));
 });
 const updateSponsorApplicationFromDB = (userData, applicationId, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const application = yield sponsorApplications_model_1.SponsorApplications.findById({ _id: applicationId });
+    const application = yield sponsorApplications_model_1.SponsorApplications.findById({
+        _id: applicationId,
+    });
     if (!application) {
         throw new appError_1.default(http_status_codes_1.default.NOT_FOUND, 'Application not found.');
     }
@@ -83,7 +86,8 @@ const updateSponsorApplicationFromDB = (userData, applicationId, payload) => __a
     if (!isOwner && !isAdmin) {
         throw new appError_1.default(http_status_codes_1.default.FORBIDDEN, 'Access denied.');
     }
-    if (((payload === null || payload === void 0 ? void 0 : payload.isDeleted) === true || (payload === null || payload === void 0 ? void 0 : payload.isDeleted) === false) && !isAdmin) {
+    if (((payload === null || payload === void 0 ? void 0 : payload.isDeleted) === true || (payload === null || payload === void 0 ? void 0 : payload.isDeleted) === false) &&
+        !isAdmin) {
         throw new appError_1.default(http_status_codes_1.default.FORBIDDEN, 'Delete option can update only Admin or Super Admin.');
     }
     // Encrypt sensitive fields
@@ -109,7 +113,7 @@ const updateSponsorApplicationFromDB = (userData, applicationId, payload) => __a
             'homeAddress',
             'currentHealthStatus',
             'membershipTier',
-            'existingConditions'
+            'existingConditions',
         ])))),
     })), { isDeleted: payload.isDeleted, isPaid: payload.isPaid });
     const updatedApplication = yield sponsorApplications_model_1.SponsorApplications.findByIdAndUpdate(applicationId, { $set: encryptedPayload }, { new: true, runValidators: true }).lean();

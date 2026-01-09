@@ -27,7 +27,8 @@ const createMemberIntoDB = (userData, payload) => __awaiter(void 0, void 0, void
     if (!userExists) {
         throw new appError_1.default(http_status_codes_1.default.BAD_REQUEST, 'User account is not created. Please go back previous step.');
     }
-    const isAdminOrSuperAdmin = (userExists === null || userExists === void 0 ? void 0 : userExists.role) === user_constent_1.USER_ROLE.admin || (userExists === null || userExists === void 0 ? void 0 : userExists.role) === user_constent_1.USER_ROLE.superAdmin;
+    const isAdminOrSuperAdmin = (userExists === null || userExists === void 0 ? void 0 : userExists.role) === user_constent_1.USER_ROLE.admin ||
+        (userExists === null || userExists === void 0 ? void 0 : userExists.role) === user_constent_1.USER_ROLE.superAdmin;
     const duplicateApplication = yield memberApplications_model_1.MemberApplications.findOne({
         userId: userData === null || userData === void 0 ? void 0 : userData._id,
     });
@@ -146,7 +147,8 @@ const updateMemberApplicationFromDB = (userData, applicationId, payload) => __aw
     if ((payload === null || payload === void 0 ? void 0 : payload.isPaid) === true && !isAdmin) {
         throw new appError_1.default(http_status_codes_1.default.FORBIDDEN, 'Paid option can update only Admin or Super Admin.');
     }
-    if (((payload === null || payload === void 0 ? void 0 : payload.isDeleted) === true || (payload === null || payload === void 0 ? void 0 : payload.isDeleted) === false) && !isAdmin) {
+    if (((payload === null || payload === void 0 ? void 0 : payload.isDeleted) === true || (payload === null || payload === void 0 ? void 0 : payload.isDeleted) === false) &&
+        !isAdmin) {
         throw new appError_1.default(http_status_codes_1.default.FORBIDDEN, 'Delete option can update only Admin or Super Admin.');
     }
     // 🔐 Fields to encrypt

@@ -9,7 +9,9 @@ const decryptSponsorPayload = (payload) => {
         // ================= Sponsor Information =================
         fullName: (0, encryption_utils_1.decrypt)(payload.fullName),
         phoneNumber: (0, encryption_utils_1.decrypt)(payload.phoneNumber),
-        whatsappNumber: payload.whatsappNumber ? (0, encryption_utils_1.decrypt)(payload.whatsappNumber) : undefined,
+        whatsappNumber: payload.whatsappNumber
+            ? (0, encryption_utils_1.decrypt)(payload.whatsappNumber)
+            : undefined,
         countryOfResidence: (0, encryption_utils_1.decrypt)(payload.countryOfResidence),
         city: (0, encryption_utils_1.decrypt)(payload.city),
         fullAddress: (0, encryption_utils_1.decrypt)(payload.fullAddress),
@@ -18,9 +20,10 @@ const decryptSponsorPayload = (payload) => {
         preferredCommunicationMethod: (0, encryption_utils_1.decrypt)(payload.preferredCommunicationMethod),
         // ================= Sponsored Members =================
         sponsoredMembers: (_a = payload.sponsoredMembers) === null || _a === void 0 ? void 0 : _a.map((member) => ({
+            _id: member === null || member === void 0 ? void 0 : member._id,
             fullName: (0, encryption_utils_1.decrypt)(member.fullName),
             relationship: (0, encryption_utils_1.decrypt)(member.relationship),
-            dateOfBirth: member.dateOfBirth ? ((0, encryption_utils_1.decrypt)(member.dateOfBirth)) : undefined,
+            dateOfBirth: member.dateOfBirth ? (0, encryption_utils_1.decrypt)(member.dateOfBirth) : undefined,
             gender: (0, encryption_utils_1.decrypt)(member.gender),
             countryOfResidence: (0, encryption_utils_1.decrypt)(member.countryOfResidence),
             cityOrRegion: (0, encryption_utils_1.decrypt)(member.cityOrRegion),

@@ -28,7 +28,7 @@ const sponsoredMemberSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
-}, { _id: false });
+});
 /**
  * ================= Main Schema =================
  */
@@ -73,8 +73,8 @@ const SponsorApplicationSchema = new mongoose_1.Schema({
     authorizeHealthcareUpdates: { type: Boolean, required: true },
     isDeleted: {
         type: Boolean,
-        default: false
-    }
+        default: false,
+    },
 }, {
     timestamps: true,
 });

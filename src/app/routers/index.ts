@@ -5,6 +5,7 @@ import { contactRouter } from '../models/Contact/contact.router';
 import { memberRouters } from '../models/memberApplications/memberApplications.router';
 import { USER_ROLE } from '../models/UsersRegistration/user.constent';
 import { spondorRouters } from '../models/sponsorApplications/sponsorApplications.router';
+import { ngoApplicationRoutes } from '../models/ngoApplication/ngoApplication.router';
 
 const router = Router();
 
@@ -28,6 +29,10 @@ const moduleRouters = [
   {
     path: `/${USER_ROLE.sponsor}`,
     route: spondorRouters,
+  },
+  {
+    path: `/${USER_ROLE.ngo}`,
+    route: ngoApplicationRoutes,
   },
 ];
 
