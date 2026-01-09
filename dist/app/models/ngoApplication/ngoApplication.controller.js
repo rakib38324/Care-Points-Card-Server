@@ -28,6 +28,8 @@ const createNGOApplication = (0, catchAsync_1.default)((req, res) => __awaiter(v
         message: 'NGO Application submitted successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 /**
  * Retrieve the single application belonging to the logged-in user
@@ -40,6 +42,8 @@ const getSingleNGOApplication = (0, catchAsync_1.default)((req, res) => __awaite
         message: 'NGO Application retrieved successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 /**
  * Retrieve all NGO applications (Admin/SuperAdmin only)
@@ -52,6 +56,8 @@ const getAllNGOApplications = (0, catchAsync_1.default)((req, res) => __awaiter(
         message: 'All NGO Applications retrieved successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 /**
  * Update specific fields of an NGO application
@@ -65,6 +71,8 @@ const updateNGOApplication = (0, catchAsync_1.default)((req, res) => __awaiter(v
         message: 'NGO Application updated successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 /**
  * Soft delete an NGO application
@@ -78,6 +86,8 @@ const deleteNGOApplication = (0, catchAsync_1.default)((req, res) => __awaiter(v
         message: 'NGO Application deleted successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 /**
  * Retrieve NGO applications with email (Admin/SuperAdmin only)
@@ -91,6 +101,8 @@ const getNGOApplicationsWithEmail = (0, catchAsync_1.default)((req, res) => __aw
         message: 'NGO Applications retrieved successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 exports.ngoApplicationControllers = {
     createNGOApplication,

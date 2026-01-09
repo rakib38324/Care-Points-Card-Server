@@ -7,7 +7,7 @@ import httpStatus from 'http-status-codes';
 import { USER_ROLE } from '../UsersRegistration/user.constent';
 import { TSponsorApplication } from './sponsorApplications.interface';
 import { SponsorApplications } from './sponsorApplications.model';
-import { encryptSponsorPayload } from './sponsorApplication.encriptor';
+import { encryptSponsorPayload } from './sponsorApplications.encriptor';
 import { decryptSponsorPayload } from './sponsorApplications.decryptor';
 
 const createSponsorIntoDB = async (

@@ -33,6 +33,8 @@ const createUsers = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, vo
             token: result === null || result === void 0 ? void 0 : result.accessToken,
         },
     });
+    // Save ID for audit
+    res.locals.createdResource = result === null || result === void 0 ? void 0 : result.user;
 }));
 const getAllUsers = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield userRegistration_service_1.UserServices.getAllUserFromDB();
@@ -42,6 +44,8 @@ const getAllUsers = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, vo
         message: 'User Information Retrieved Successfully',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const getSingleUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
@@ -52,6 +56,8 @@ const getSingleUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
         message: 'User Information Retrieved Successfully',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const updateUsers = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
@@ -62,6 +68,8 @@ const updateUsers = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, vo
         message: 'User updated successfully',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const getMe = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.user;
@@ -72,6 +80,8 @@ const getMe = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, 
         message: `Your Information Retrieved Successfully`,
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 exports.userControllers = {
     createUsers,

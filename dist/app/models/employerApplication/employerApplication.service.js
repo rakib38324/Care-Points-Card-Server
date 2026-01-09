@@ -75,7 +75,9 @@ const getSingleEmployerApplicationFromDB = (userData) => __awaiter(void 0, void 
  */
 const getAllEmployerApplicationFromDB = (userData) => __awaiter(void 0, void 0, void 0, function* () {
     const userExists = yield userRegistration_model_1.User.findById(userData._id);
-    if (!userExists || (userExists.role !== user_constent_1.USER_ROLE.superAdmin && userExists.role !== user_constent_1.USER_ROLE.admin)) {
+    if (!userExists ||
+        (userExists.role !== user_constent_1.USER_ROLE.superAdmin &&
+            userExists.role !== user_constent_1.USER_ROLE.admin)) {
         throw new appError_1.default(http_status_codes_1.default.FORBIDDEN, 'Access denied. Admin only.');
     }
     const applications = yield employerApplication_model_1.EmployerApplication.find().lean();
@@ -101,7 +103,7 @@ const updateEmployerApplicationFromDB = (userData, applicationId, payload) => __
     const encryptedPayload = Object.assign(Object.assign(Object.assign(Object.assign({}, (0, encryptObjectFields_1.encryptObjectFields)(payload, [
         'companyName',
         'industry',
-        "companySize",
+        'companySize',
         'registrationNumber',
         'countryOfRegistration',
         'headquartersAddress',
@@ -122,20 +124,34 @@ const updateEmployerApplicationFromDB = (userData, applicationId, payload) => __
         'paymentSchedule',
         'paymentMethod',
         'desiredStartDate',
-        'communicationSupportNeeded'
+        'communicationSupportNeeded',
     ])), (payload.primaryContact && {
         primaryContact: {
-            fullName: payload.primaryContact.fullName ? (0, encryption_utils_1.encrypt)(payload.primaryContact.fullName) : undefined,
-            titleOrPosition: payload.primaryContact.titleOrPosition ? (0, encryption_utils_1.encrypt)(payload.primaryContact.titleOrPosition) : undefined,
-            email: payload.primaryContact.email ? (0, encryption_utils_1.encrypt)(payload.primaryContact.email) : undefined,
-            phoneNumber: payload.primaryContact.phoneNumber ? (0, encryption_utils_1.encrypt)(payload.primaryContact.phoneNumber) : undefined,
-            whatsappNumber: payload.primaryContact.whatsappNumber ? (0, encryption_utils_1.encrypt)(payload.primaryContact.whatsappNumber) : undefined,
+            fullName: payload.primaryContact.fullName
+                ? (0, encryption_utils_1.encrypt)(payload.primaryContact.fullName)
+                : undefined,
+            titleOrPosition: payload.primaryContact.titleOrPosition
+                ? (0, encryption_utils_1.encrypt)(payload.primaryContact.titleOrPosition)
+                : undefined,
+            email: payload.primaryContact.email
+                ? (0, encryption_utils_1.encrypt)(payload.primaryContact.email)
+                : undefined,
+            phoneNumber: payload.primaryContact.phoneNumber
+                ? (0, encryption_utils_1.encrypt)(payload.primaryContact.phoneNumber)
+                : undefined,
+            whatsappNumber: payload.primaryContact.whatsappNumber
+                ? (0, encryption_utils_1.encrypt)(payload.primaryContact.whatsappNumber)
+                : undefined,
         },
     })), (payload.openEnrollmentPeriod && {
         openEnrollmentPeriod: {
-            start: payload.openEnrollmentPeriod.start ? (0, encryption_utils_1.encrypt)(payload.openEnrollmentPeriod.start) : undefined,
-            end: payload.openEnrollmentPeriod.end ? (0, encryption_utils_1.encrypt)(payload.openEnrollmentPeriod.end) : undefined,
-        }
+            start: payload.openEnrollmentPeriod.start
+                ? (0, encryption_utils_1.encrypt)(payload.openEnrollmentPeriod.start)
+                : undefined,
+            end: payload.openEnrollmentPeriod.end
+                ? (0, encryption_utils_1.encrypt)(payload.openEnrollmentPeriod.end)
+                : undefined,
+        },
     })), { isDeleted: payload === null || payload === void 0 ? void 0 : payload.isDeleted, isPaid: isAdmin ? payload === null || payload === void 0 ? void 0 : payload.isPaid : application.isPaid });
     const updatedDoc = yield employerApplication_model_1.EmployerApplication.findByIdAndUpdate(applicationId, { $set: encryptedPayload }, { new: true, runValidators: true }).lean();
     return (0, employerApplication_decrytor_1.decryptEmployerApplicationPayload)(updatedDoc);
@@ -167,7 +183,9 @@ const getEmployerApplicationWithEmailFromDB = (email) => __awaiter(void 0, void 
     if (!userExists) {
         throw new appError_1.default(http_status_codes_1.default.BAD_REQUEST, 'Invalid Email Address.');
     }
-    const applications = yield employerApplication_model_1.EmployerApplication.find({ userId: userExists === null || userExists === void 0 ? void 0 : userExists._id });
+    const applications = yield employerApplication_model_1.EmployerApplication.find({
+        userId: userExists === null || userExists === void 0 ? void 0 : userExists._id,
+    });
     if (!applications.length) {
         throw new appError_1.default(http_status_codes_1.default.NOT_FOUND, 'No corporate applications found for this email.');
     }

@@ -9,6 +9,7 @@ const user_constent_1 = require("../models/UsersRegistration/user.constent");
 const sponsorApplications_router_1 = require("../models/sponsorApplications/sponsorApplications.router");
 const ngoApplication_router_1 = require("../models/ngoApplication/ngoApplication.router");
 const employerApplication_router_1 = require("../models/employerApplication/employerApplication.router");
+const auditLogs_router_1 = require("../models/auditLogs/auditLogs.router");
 const router = (0, express_1.Router)();
 const moduleRouters = [
     {
@@ -38,6 +39,10 @@ const moduleRouters = [
     {
         path: `/${user_constent_1.USER_ROLE.employer}`,
         route: employerApplication_router_1.employerRouters,
+    },
+    {
+        path: `/audit`,
+        route: auditLogs_router_1.AuditRoutes,
     },
 ];
 moduleRouters.forEach((route) => router.use(route.path, route.route));

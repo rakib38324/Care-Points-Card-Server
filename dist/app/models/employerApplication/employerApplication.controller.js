@@ -28,6 +28,8 @@ const createEmployerApplication = (0, catchAsync_1.default)((req, res) => __awai
         message: 'Employer Group Sponsorship Application Sent Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 /**
  * ================= Get Single Employer Application =================
@@ -40,6 +42,8 @@ const getSingleEmployerApplication = (0, catchAsync_1.default)((req, res) => __a
         message: 'Employer Application Retrieved Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 /**
  * ================= Get All Employer Applications =================
@@ -52,6 +56,8 @@ const getAllEmployerApplications = (0, catchAsync_1.default)((req, res) => __awa
         message: 'All Employer Applications Retrieved Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 /**
  * ================= Update Employer Application =================
@@ -65,6 +71,8 @@ const updateEmployerApplication = (0, catchAsync_1.default)((req, res) => __awai
         message: 'Employer Application Updated Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 /**
  * ================= Delete Employer Application =================
@@ -78,6 +86,8 @@ const deleteEmployerApplication = (0, catchAsync_1.default)((req, res) => __awai
         message: 'Employer Application Deleted Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 /**
  * ================= Get Employer Applications By Email =================
@@ -91,6 +101,8 @@ const getEmployerApplicationsWithEmail = (0, catchAsync_1.default)((req, res) =>
         message: 'Employer Applications Retrieved Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 exports.employerApplicationControllers = {
     createEmployerApplication,

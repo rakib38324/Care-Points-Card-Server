@@ -164,6 +164,7 @@ const loginUser = async (payload: TLoginUser) => {
     .exec();
 
   const userData = {
+    _id: userInformation?._id,
     email: userInformation?.email,
     role: userInformation?.role,
     status: userInformation?.status,

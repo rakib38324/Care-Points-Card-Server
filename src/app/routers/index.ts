@@ -7,6 +7,7 @@ import { USER_ROLE } from '../models/UsersRegistration/user.constent';
 import { spondorRouters } from '../models/sponsorApplications/sponsorApplications.router';
 import { ngoApplicationRoutes } from '../models/ngoApplication/ngoApplication.router';
 import { employerRouters } from '../models/employerApplication/employerApplication.router';
+import { AuditRoutes } from '../models/auditLogs/auditLogs.router';
 
 const router = Router();
 
@@ -38,6 +39,10 @@ const moduleRouters = [
   {
     path: `/${USER_ROLE.employer}`,
     route: employerRouters,
+  },
+  {
+    path: `/audit`,
+    route: AuditRoutes,
   },
 ];
 
