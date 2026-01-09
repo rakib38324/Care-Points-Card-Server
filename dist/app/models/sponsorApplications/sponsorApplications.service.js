@@ -19,7 +19,7 @@ const encryptObjectFields_1 = require("../../utils/encryptObjectFields");
 const http_status_codes_1 = __importDefault(require("http-status-codes"));
 const user_constent_1 = require("../UsersRegistration/user.constent");
 const sponsorApplications_model_1 = require("./sponsorApplications.model");
-const sponsorApplication_encriptor_1 = require("./sponsorApplication.encriptor");
+const sponsorApplications_encriptor_1 = require("./sponsorApplications.encriptor");
 const sponsorApplications_decryptor_1 = require("./sponsorApplications.decryptor");
 const createSponsorIntoDB = (userData, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const userExists = yield userRegistration_model_1.User.findById(userData === null || userData === void 0 ? void 0 : userData._id);
@@ -38,7 +38,7 @@ const createSponsorIntoDB = (userData, payload) => __awaiter(void 0, void 0, voi
         throw new appError_1.default(http_status_codes_1.default.BAD_REQUEST, 'You have already apply for Sponsor application.');
     }
     // Encrypt sensitive fields before saving
-    const encryptedData = (0, sponsorApplication_encriptor_1.encryptSponsorPayload)(payload);
+    const encryptedData = (0, sponsorApplications_encriptor_1.encryptSponsorPayload)(payload);
     const data = Object.assign(Object.assign({}, encryptedData), { userId: userData._id });
     const createApplication = yield sponsorApplications_model_1.SponsorApplications.create(data);
     return {

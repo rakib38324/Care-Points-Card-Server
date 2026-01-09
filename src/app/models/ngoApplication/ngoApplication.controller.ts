@@ -18,6 +18,9 @@ const createNGOApplication = catchAsync(async (req, res) => {
     message: 'NGO Application submitted successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 /**
@@ -34,6 +37,9 @@ const getSingleNGOApplication = catchAsync(async (req, res) => {
     message: 'NGO Application retrieved successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 /**
@@ -50,6 +56,9 @@ const getAllNGOApplications = catchAsync(async (req, res) => {
     message: 'All NGO Applications retrieved successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 /**
@@ -69,6 +78,9 @@ const updateNGOApplication = catchAsync(async (req, res) => {
     message: 'NGO Application updated successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 /**
@@ -87,6 +99,9 @@ const deleteNGOApplication = catchAsync(async (req, res) => {
     message: 'NGO Application deleted successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 /**
@@ -103,6 +118,9 @@ const getNGOApplicationsWithEmail = catchAsync(async (req, res) => {
     message: 'NGO Applications retrieved successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 export const ngoApplicationControllers = {

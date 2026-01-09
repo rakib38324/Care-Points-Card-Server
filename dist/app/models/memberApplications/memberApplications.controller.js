@@ -25,6 +25,8 @@ const createMembersApplication = (0, catchAsync_1.default)((req, res) => __await
         message: 'Member Application Send Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const getSingleMemberApplication = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield memberApplications_service_1.memberServices.getSingleMemberApplicationFromDB(req.user);
@@ -34,6 +36,8 @@ const getSingleMemberApplication = (0, catchAsync_1.default)((req, res) => __awa
         message: 'Member Application Retrieved Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const getAllMemberApplication = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield memberApplications_service_1.memberServices.getAllMemberApplicationFromDB(req.user);
@@ -43,6 +47,8 @@ const getAllMemberApplication = (0, catchAsync_1.default)((req, res) => __awaite
         message: 'Member Application Retrieved Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const updateMemberApplication = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
@@ -53,6 +59,8 @@ const updateMemberApplication = (0, catchAsync_1.default)((req, res) => __awaite
         message: 'Member Application Retrieved Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const deleteMemberApplication = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
@@ -63,6 +71,8 @@ const deleteMemberApplication = (0, catchAsync_1.default)((req, res) => __awaite
         message: 'Member Application Delete Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const getMemberApplicationsWithEmail = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.params;
@@ -73,6 +83,8 @@ const getMemberApplicationsWithEmail = (0, catchAsync_1.default)((req, res) => _
         message: 'Member Application Retrieved Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 exports.memberControllers = {
     createMembersApplication,

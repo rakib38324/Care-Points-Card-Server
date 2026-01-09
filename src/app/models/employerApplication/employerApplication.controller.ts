@@ -18,6 +18,9 @@ const createEmployerApplication = catchAsync(async (req, res) => {
     message: 'Employer Group Sponsorship Application Sent Successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 /**
@@ -35,6 +38,9 @@ const getSingleEmployerApplication = catchAsync(async (req, res) => {
     message: 'Employer Application Retrieved Successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 /**
@@ -50,6 +56,9 @@ const getAllEmployerApplications = catchAsync(async (req, res) => {
     message: 'All Employer Applications Retrieved Successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 /**
@@ -70,6 +79,9 @@ const updateEmployerApplication = catchAsync(async (req, res) => {
     message: 'Employer Application Updated Successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 /**
@@ -89,6 +101,9 @@ const deleteEmployerApplication = catchAsync(async (req, res) => {
     message: 'Employer Application Deleted Successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 /**
@@ -107,6 +122,9 @@ const getEmployerApplicationsWithEmail = catchAsync(async (req, res) => {
     message: 'Employer Applications Retrieved Successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 export const employerApplicationControllers = {

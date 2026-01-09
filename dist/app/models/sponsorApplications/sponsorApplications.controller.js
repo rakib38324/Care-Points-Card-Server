@@ -25,6 +25,8 @@ const createSpondorApplication = (0, catchAsync_1.default)((req, res) => __await
         message: 'Sponsor Application Send Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const getSingleSposorApplication = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield sponsorApplications_service_1.SponsorApplicationServices.getSingleSponsorApplicationFromDB(req.user);
@@ -34,6 +36,8 @@ const getSingleSposorApplication = (0, catchAsync_1.default)((req, res) => __awa
         message: 'Sponsor Application Retrieved Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const getAllSponsorApplication = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield sponsorApplications_service_1.SponsorApplicationServices.getAllSponsorApplicationsFromDB(req.user);
@@ -43,6 +47,8 @@ const getAllSponsorApplication = (0, catchAsync_1.default)((req, res) => __await
         message: 'Sponsor Application Retrieved Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const updateSponsorApplication = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
@@ -53,6 +59,8 @@ const updateSponsorApplication = (0, catchAsync_1.default)((req, res) => __await
         message: 'Spondor Application Retrieved Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const deleteSponsorApplication = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
@@ -63,6 +71,8 @@ const deleteSponsorApplication = (0, catchAsync_1.default)((req, res) => __await
         message: 'Spondor Application Delete Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const getSponsorApplicationsWithEmail = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.params;
@@ -73,6 +83,8 @@ const getSponsorApplicationsWithEmail = (0, catchAsync_1.default)((req, res) => 
         message: 'Spondor Application Retrieved Successfully.',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 exports.SpondorControllers = {
     createSpondorApplication,

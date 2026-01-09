@@ -15,6 +15,9 @@ const createSpondorApplication = catchAsync(async (req, res) => {
     message: 'Sponsor Application Send Successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 const getSingleSposorApplication = catchAsync(async (req, res) => {
@@ -29,6 +32,9 @@ const getSingleSposorApplication = catchAsync(async (req, res) => {
     message: 'Sponsor Application Retrieved Successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 const getAllSponsorApplication = catchAsync(async (req, res) => {
@@ -41,6 +47,9 @@ const getAllSponsorApplication = catchAsync(async (req, res) => {
     message: 'Sponsor Application Retrieved Successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 const updateSponsorApplication = catchAsync(async (req, res) => {
@@ -58,6 +67,9 @@ const updateSponsorApplication = catchAsync(async (req, res) => {
     message: 'Spondor Application Retrieved Successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 const deleteSponsorApplication = catchAsync(async (req, res) => {
@@ -74,6 +86,9 @@ const deleteSponsorApplication = catchAsync(async (req, res) => {
     message: 'Spondor Application Delete Successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 const getSponsorApplicationsWithEmail = catchAsync(async (req, res) => {
@@ -89,6 +104,9 @@ const getSponsorApplicationsWithEmail = catchAsync(async (req, res) => {
     message: 'Spondor Application Retrieved Successfully.',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 export const SpondorControllers = {

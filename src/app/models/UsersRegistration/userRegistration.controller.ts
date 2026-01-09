@@ -21,6 +21,9 @@ const createUsers = catchAsync(async (req, res) => {
       token: result?.accessToken,
     },
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result?.user;
 });
 
 const getAllUsers = catchAsync(async (req, res) => {
@@ -31,6 +34,9 @@ const getAllUsers = catchAsync(async (req, res) => {
     message: 'User Information Retrieved Successfully',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 const getSingleUser = catchAsync(async (req, res) => {
@@ -42,6 +48,9 @@ const getSingleUser = catchAsync(async (req, res) => {
     message: 'User Information Retrieved Successfully',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 const updateUsers = catchAsync(async (req, res) => {
@@ -53,6 +62,9 @@ const updateUsers = catchAsync(async (req, res) => {
     message: 'User updated successfully',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 const getMe = catchAsync(async (req, res) => {
@@ -66,6 +78,9 @@ const getMe = catchAsync(async (req, res) => {
     message: `Your Information Retrieved Successfully`,
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 export const userControllers = {

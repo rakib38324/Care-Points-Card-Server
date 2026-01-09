@@ -38,6 +38,8 @@ const emailVerification = (0, catchAsync_1.default)((req, res) => __awaiter(void
         message: message,
         data: null,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const resendEmailVerification = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield auth_service_1.AuthServices.resendEmailVerification(req.body);
@@ -48,6 +50,8 @@ const resendEmailVerification = (0, catchAsync_1.default)((req, res) => __awaite
         message: message,
         data: null,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield auth_service_1.AuthServices.loginUser(req.body);
@@ -62,6 +66,8 @@ const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void
         message: 'Login Successfully!',
         data: { user, token },
     });
+    // Save ID for audit
+    res.locals.createdResource = result === null || result === void 0 ? void 0 : result.user;
 }));
 const changePassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const passwordData = __rest(req.body, []);
@@ -72,6 +78,8 @@ const changePassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
         message: 'Password Change Successfully',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const forgetPassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const email = req.body.email;
@@ -82,6 +90,8 @@ const forgetPassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
         message: 'Reset link is Generate Successfully',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const resetPassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const token = req.headers.authorization;
@@ -92,6 +102,8 @@ const resetPassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
         message: 'Password is reset Successfully',
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 const getMe = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.user;
@@ -102,6 +114,8 @@ const getMe = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, 
         message: `User Information is retrived succesfully`,
         data: result,
     });
+    // Save ID for audit
+    res.locals.createdResource = result;
 }));
 exports.authControllers = {
     emailVerification,

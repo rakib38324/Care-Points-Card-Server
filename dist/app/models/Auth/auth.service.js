@@ -111,6 +111,7 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
         .select('-password -createdAt -updatedAt -passwordChangedAt') // Exclude password, createdAt, and updatedAt from the User document
         .exec();
     const userData = {
+        _id: userInformation === null || userInformation === void 0 ? void 0 : userInformation._id,
         email: userInformation === null || userInformation === void 0 ? void 0 : userInformation.email,
         role: userInformation === null || userInformation === void 0 ? void 0 : userInformation.role,
         status: userInformation === null || userInformation === void 0 ? void 0 : userInformation.status,

@@ -4,6 +4,7 @@ import notFound from './app/middlewares/notFound';
 import router from './app/routers';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import cookieParser from 'cookie-parser';
+import { auditMiddleware } from './app/models/auditLogs/audit.middleware';
 
 const app: Application = express();
 
@@ -23,6 +24,8 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
+app.use(auditMiddleware);
+
 //==========>application routes
 app.use('/api/v1', router);
 
@@ -35,4 +38,5 @@ app.use(notFound);
 
 //--> global error
 app.use(globalErrorHandler);
+
 export default app;

@@ -14,6 +14,9 @@ const emailVerification = catchAsync(async (req, res) => {
     message: message,
     data: null,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 const resendEmailVerification = catchAsync(async (req, res) => {
@@ -26,6 +29,9 @@ const resendEmailVerification = catchAsync(async (req, res) => {
     message: message,
     data: null,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 const loginUser = catchAsync(async (req, res) => {
@@ -43,6 +49,9 @@ const loginUser = catchAsync(async (req, res) => {
     message: 'Login Successfully!',
     data: { user, token },
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result?.user;
 });
 
 const changePassword = catchAsync(async (req, res) => {
@@ -55,6 +64,9 @@ const changePassword = catchAsync(async (req, res) => {
     message: 'Password Change Successfully',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 const forgetPassword = catchAsync(async (req, res) => {
@@ -68,6 +80,9 @@ const forgetPassword = catchAsync(async (req, res) => {
     message: 'Reset link is Generate Successfully',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 const resetPassword = catchAsync(async (req, res) => {
@@ -81,6 +96,9 @@ const resetPassword = catchAsync(async (req, res) => {
     message: 'Password is reset Successfully',
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 const getMe = catchAsync(async (req, res) => {
@@ -93,6 +111,9 @@ const getMe = catchAsync(async (req, res) => {
     message: `User Information is retrived succesfully`,
     data: result,
   });
+
+  // Save ID for audit
+  res.locals.createdResource = result;
 });
 
 export const authControllers = {
