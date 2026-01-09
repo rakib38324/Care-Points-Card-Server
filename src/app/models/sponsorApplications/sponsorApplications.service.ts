@@ -41,7 +41,7 @@ const createSponsorIntoDB = async (
   if (duplicateApplication && !isAdminOrSuperAdmin) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      'You have already created a  Sponsor application.',
+      'You have already apply for Sponsor application.',
     );
   }
 
@@ -108,7 +108,7 @@ const getAllSponsorApplicationsFromDB = async (userData: JwtPayload) => {
 const updateSponsorApplicationFromDB = async (
   userData: JwtPayload,
   applicationId: string,
-  payload: Partial<TSponsorApplication>,
+  payload: TSponsorApplication,
 ) => {
   const application = await SponsorApplications.findById({
     _id: applicationId,

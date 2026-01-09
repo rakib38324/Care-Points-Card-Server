@@ -80,5 +80,5 @@ exports.SpondorControllers = {
     getSingleSposorApplication,
     getSponsorApplicationsWithEmail,
     updateSponsorApplication,
-    deleteSponsorApplication
+    deleteSponsorApplication,
 };

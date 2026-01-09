@@ -21,9 +21,13 @@ const sponsoredMemberSchema = zod_1.z.object({
     }),
     email: zod_1.z.string().email().optional(),
     homeAddress: zod_1.z.string({ error: 'Home address is required.' }),
-    currentHealthStatus: zod_1.z.enum(['Healthy', 'Managing Condition', 'Other'], { error: 'Please select a health status: Healthy, Managing Condition, or Other.' }),
+    currentHealthStatus: zod_1.z.enum(['Healthy', 'Managing Condition', 'Other'], {
+        error: 'Please select a health status: Healthy, Managing Condition, or Other.',
+    }),
     existingConditions: zod_1.z.string().optional(),
-    membershipTier: zod_1.z.enum(['Preventative Wellness Care', 'Disease Monitoring & Management'], { error: 'Please select a valid membership tier (Preventative Wellness Care or Disease Monitoring & Management).' }),
+    membershipTier: zod_1.z.enum(['Preventative Wellness Care', 'Disease Monitoring & Management'], {
+        error: 'Please select a valid membership tier (Preventative Wellness Care or Disease Monitoring & Management).',
+    }),
 });
 /**
  * ================= Create  Sponsor Application =================
@@ -58,7 +62,9 @@ const createSponsorValidationSchema = zod_1.z.object({
             error: 'Preferred communication method is required.',
         }),
         // ================= Payment & Billing =================
-        totalOnboardingFees: zod_1.z.number({ error: 'Total onboarding fees are required.' }),
+        totalOnboardingFees: zod_1.z.number({
+            error: 'Total onboarding fees are required.',
+        }),
         membershipFeeEstimate: zod_1.z.string().optional(),
         paymentMethod: zod_1.z.enum(['Credit/Debit Card', 'Bank Transfer', 'Mobile Money'], {
             error: 'Payment method is required.',
@@ -68,9 +74,15 @@ const createSponsorValidationSchema = zod_1.z.object({
         accessDigitalHealthRecords: zod_1.z.boolean().optional(),
         authorizeDirectCare: zod_1.z.boolean().optional(),
         // ================= Consent & Agreements =================
-        TermsOfService: zod_1.z.boolean({ error: 'You must agree to Terms of Service.' }).refine(val => val === true),
-        PrivacyPolicyHIPAA: zod_1.z.boolean({ error: 'You must agree to Privacy Policy.' }).refine(val => val === true),
-        authorizeHealthcareUpdates: zod_1.z.boolean({ error: 'Authorization for healthcare updates is required.' }).refine(val => val === true),
+        TermsOfService: zod_1.z
+            .boolean({ error: 'You must agree to Terms of Service.' })
+            .refine((val) => val === true),
+        PrivacyPolicyHIPAA: zod_1.z
+            .boolean({ error: 'You must agree to Privacy Policy.' })
+            .refine((val) => val === true),
+        authorizeHealthcareUpdates: zod_1.z
+            .boolean({ error: 'Authorization for healthcare updates is required.' })
+            .refine((val) => val === true),
     }),
 });
 /**
@@ -97,11 +109,17 @@ const updateSponsorValidationSchema = zod_1.z.object({
         fullAddress: zod_1.z.string().optional(),
         numberOfMembers: zod_1.z.number().min(1).max(10).optional(),
         sponsoredMembers: zod_1.z.array(sponsoredMemberSchema).optional(),
-        primaryContact: zod_1.z.enum(['Sponsor only', 'Sponsored members directly', 'Both']).optional(),
-        preferredCommunicationMethod: zod_1.z.enum(['Email', 'WhatsApp', 'SMS', 'Phone']).optional(),
+        primaryContact: zod_1.z
+            .enum(['Sponsor only', 'Sponsored members directly', 'Both'])
+            .optional(),
+        preferredCommunicationMethod: zod_1.z
+            .enum(['Email', 'WhatsApp', 'SMS', 'Phone'])
+            .optional(),
         totalOnboardingFees: zod_1.z.number().optional(),
         membershipFeeEstimate: zod_1.z.number().optional(),
-        paymentMethod: zod_1.z.enum(['Credit/Debit Card', 'Bank Transfer', 'Mobile Money']).optional(),
+        paymentMethod: zod_1.z
+            .enum(['Credit/Debit Card', 'Bank Transfer', 'Mobile Money'])
+            .optional(),
         isPaid: zod_1.z.boolean().optional(),
         receiveMonthlyReports: zod_1.z.boolean().optional(),
         accessDigitalHealthRecords: zod_1.z.boolean().optional(),

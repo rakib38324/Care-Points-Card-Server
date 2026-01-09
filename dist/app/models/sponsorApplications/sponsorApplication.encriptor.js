@@ -6,7 +6,9 @@ const encryptSponsorPayload = (payload) => {
     var _a;
     return Object.assign(Object.assign({}, payload), { 
         // ================= Sponsor Information =================
-        fullName: (0, encryption_utils_1.encrypt)(payload.fullName), phoneNumber: (0, encryption_utils_1.encrypt)(payload.phoneNumber), whatsappNumber: payload.whatsappNumber ? (0, encryption_utils_1.encrypt)(payload.whatsappNumber) : undefined, fullAddress: (0, encryption_utils_1.encrypt)(payload.fullAddress), countryOfResidence: (0, encryption_utils_1.encrypt)(payload.countryOfResidence), city: (0, encryption_utils_1.encrypt)(payload.city), 
+        fullName: (0, encryption_utils_1.encrypt)(payload.fullName), phoneNumber: (0, encryption_utils_1.encrypt)(payload.phoneNumber), whatsappNumber: payload.whatsappNumber
+            ? (0, encryption_utils_1.encrypt)(payload.whatsappNumber)
+            : undefined, fullAddress: (0, encryption_utils_1.encrypt)(payload.fullAddress), countryOfResidence: (0, encryption_utils_1.encrypt)(payload.countryOfResidence), city: (0, encryption_utils_1.encrypt)(payload.city), 
         // ================= Communication Preferences =================
         primaryContact: (0, encryption_utils_1.encrypt)(payload.primaryContact), preferredCommunicationMethod: (0, encryption_utils_1.encrypt)(payload.preferredCommunicationMethod), 
         // ================= Sponsored Members =================
@@ -21,7 +23,8 @@ const encryptSponsorPayload = (payload) => {
             email: (member === null || member === void 0 ? void 0 : member.email) && (0, encryption_utils_1.encrypt)(member.email),
             homeAddress: (0, encryption_utils_1.encrypt)(member.homeAddress),
             currentHealthStatus: (0, encryption_utils_1.encrypt)(member.currentHealthStatus),
-            existingConditions: member.existingConditions && (0, encryption_utils_1.encrypt)(member.existingConditions),
+            existingConditions: member.existingConditions &&
+                (0, encryption_utils_1.encrypt)(member.existingConditions),
             membershipTier: (0, encryption_utils_1.encrypt)(member.membershipTier),
         })) });
 };

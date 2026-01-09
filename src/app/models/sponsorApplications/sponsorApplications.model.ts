@@ -5,32 +5,29 @@ import { TSponsorApplication } from './sponsorApplications.interface';
 /**
  * ================= Sponsored Member Sub Schema =================
  */
-const sponsoredMemberSchema = new Schema(
-  {
-    fullName: { type: String, required: true },
-    relationship: {
-      type: String,
-      required: true,
-    },
-    dateOfBirth: { type: String, required: true },
-    gender: { type: String, required: true },
-    countryOfResidence: { type: String, required: true },
-    cityOrRegion: { type: String, required: true },
-    phoneNumber: { type: String, required: true },
-    email: { type: String },
-    homeAddress: { type: String, required: true },
-    currentHealthStatus: {
-      type: String,
-      required: true,
-    },
-    existingConditions: { type: String },
-    membershipTier: {
-      type: String,
-      required: true,
-    },
+const sponsoredMemberSchema = new Schema({
+  fullName: { type: String, required: true },
+  relationship: {
+    type: String,
+    required: true,
   },
-  { _id: false },
-);
+  dateOfBirth: { type: String, required: true },
+  gender: { type: String, required: true },
+  countryOfResidence: { type: String, required: true },
+  cityOrRegion: { type: String, required: true },
+  phoneNumber: { type: String, required: true },
+  email: { type: String },
+  homeAddress: { type: String, required: true },
+  currentHealthStatus: {
+    type: String,
+    required: true,
+  },
+  existingConditions: { type: String },
+  membershipTier: {
+    type: String,
+    required: true,
+  },
+});
 
 /**
  * ================= Main Schema =================
